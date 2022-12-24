@@ -1,6 +1,6 @@
 import 'dart:collection';
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../pages/gas_page.dart';
 import '../pages/orders_page.dart';
 import '../pages/users_page.dart';
@@ -15,6 +15,22 @@ class AdminiController extends ChangeNotifier {
 
   String _typeOfOrder = "Diesel";
 
+  List _bottomNavText = ['USERS', 'GAS', 'ORDERS'];
+  List _bottomNavIcons = const [
+    FaIcon(
+      FontAwesomeIcons.users,
+      size: 20,
+    ),
+    FaIcon(
+      FontAwesomeIcons.gasPump,
+      size: 20,
+    ),
+    Icon(
+      Icons.menu,
+      size: 20,
+    ),
+  ];
+
 // This is a special case
   List<Widget> pages = const [Users(), Gas(), Orders()];
 
@@ -26,6 +42,12 @@ class AdminiController extends ChangeNotifier {
 
   UnmodifiableListView<PriceAndQuantityManager> get orderInformation =>
       UnmodifiableListView(_orderinfor);
+
+  UnmodifiableListView get bottomNavText =>
+      UnmodifiableListView(_bottomNavText);
+
+  UnmodifiableListView get bottomNavIcons =>
+      UnmodifiableListView(_bottomNavIcons);
 
   String get typeOfOrder => _typeOfOrder;
 
@@ -48,6 +70,12 @@ class AdminiController extends ChangeNotifier {
 
   addOrderinfor(PriceAndQuantityManager orderinformation) {
     _orderinfor.add(orderinformation);
+    notifyListeners();
+  }
+
+  deleteOrder(index) {
+    _orderinfor.removeWhere(
+        (_order) => _orderinfor[index].quantity == _order.quantity);
     notifyListeners();
   }
 }

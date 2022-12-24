@@ -17,21 +17,7 @@ class _AdminPageState extends State<AdminPage> {
   Widget build(BuildContext context) {
     AdminiController controlpages = Provider.of<AdminiController>(context);
     Size size = MediaQuery.of(context).size;
-    List bottomNavText = ['USERS', 'GAS', 'ORDERS'];
-    List bottomNavIcons = const [
-      FaIcon(
-        FontAwesomeIcons.users,
-        size: 20,
-      ),
-      FaIcon(
-        FontAwesomeIcons.gasPump,
-        size: 20,
-      ),
-      Icon(
-        Icons.menu,
-        size: 20,
-      ),
-    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("HELLO ADMIN"),
@@ -49,23 +35,23 @@ class _AdminPageState extends State<AdminPage> {
       bottomNavigationBar: CurvedNavigationBar(
           backgroundColor: Colors.blueAccent,
           items: List.generate(
-              bottomNavIcons.length,
+              controlpages.bottomNavIcons.length,
               (index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        bottomNavIcons[index],
+                        controlpages.bottomNavIcons[index],
                         const SizedBox(
                           height: 5.0,
                         ),
-                        Text(bottomNavText[index])
+                        Text(controlpages.bottomNavText[index])
                       ],
                     ),
                   )),
           onTap: (index) {
             controlpages.setActiveIndex(index);
-            print(controlpages.getactiveIndex);
+            // print(controlpages.getactiveIndex);
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
